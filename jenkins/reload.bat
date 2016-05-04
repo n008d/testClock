@@ -19,5 +19,4 @@ call %ELECTRON% "%SRC_DIR%"
 rem --------------------------------------------------------
 
 echo finish
-exit
-
+exit 0
