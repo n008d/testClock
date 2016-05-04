@@ -15,7 +15,7 @@ set SRC_DIR=src
 set ELECTRON=electron
 
 echo start
-call %ELECTRON% "%SRC_DIR%"
+start %ELECTRON% "%SRC_DIR%"
 rem --------------------------------------------------------
 
 echo finish
