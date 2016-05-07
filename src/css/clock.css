@@ -1,8 +1,11 @@
 
 .curDate {
-	font-size: 40px;
+	font-size: 100px;
+	text-align:center;
+	/* background-color: cornflowerblue; */
 }
 .curTime {
-	font-size: 120px;
+	font-size: 300px;
+	text-align:center;
 }
 

@@ -1,7 +1,8 @@
 var app = require('app');  // アプリケーション作成用モジュールをロード
 var BrowserWindow = require('browser-window');
 var powerSaveBlocker = require('electron').powerSaveBlocker;
- 
+
+
 //  クラッシュレポート
 require('crash-reporter').start();
 

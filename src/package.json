@@ -8,6 +8,8 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
+    "electron-rebuild": "^1.1.3"
   }
 }
