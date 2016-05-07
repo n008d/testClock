@@ -14,7 +14,11 @@ app.on('window-all-closed', function() {
 // アプリケーションの初期化が完了したら呼び出されます。
 app.on('ready', function() {
 	// メインウィンドウを作成します。
-	mainWindow = new BrowserWindow({width: 600, height: 400});
+	var mainWindowParam = {
+		width: 1000, height: 600,
+		kiosk: true,
+	};
+	mainWindow = new BrowserWindow(mainWindowParam);
 
 	// メインウィンドウに表示するURLを指定します。
 	mainWindow.loadUrl('file://' + __dirname + '/index.html');
