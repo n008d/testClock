@@ -1,5 +1,6 @@
 var app = require('app');  // アプリケーション作成用モジュールをロード
 var BrowserWindow = require('browser-window');
+var powerSaveBlocker = require('electron').powerSaveBlocker;
  
 //  クラッシュレポート
 require('crash-reporter').start();
@@ -23,8 +24,11 @@ app.on('ready', function() {
 	// メインウィンドウに表示するURLを指定します。
 	mainWindow.loadUrl('file://' + __dirname + '/index.html');
 
+	var powerSaveBlockerID = powerSaveBlocker.start('prevent-display-sleep');
+	
 	// メインウィンドウが閉じられたときの処理
 	mainWindow.on('closed', function() {
+		powerSaveBlocker.stop(powerSaveBlockerID);
 		mainWindow = null;
 	});
 });

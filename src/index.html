@@ -4,6 +4,7 @@
 	<meta charset="utf-8">
 	<title>testClock</title>
 
+	<link rel="stylesheet" href="css/clock.css" type="text/css">
 	<script>
 		window.jQuery = window.$ = require('./js/jquery-2.2.3.min.js');
 		require('remote').getCurrentWindow().toggleDevTools();
@@ -12,16 +13,18 @@
 </head>
 <body>
 
-<h1>テスト6テスト</h1>
-We are using io.js <script>document.write(process.version)</script>
-and Electron <script>document.write(process.versions['electron'])</script>.
 <br />
-	<span id="clock_year">0000</span>年
-	<span id="clock_month">00</span>月
-	<span id="clock_day">00</span>日 <span id="clock_dayOfWeek">X</span>曜日
-	
+	<div class="clock">
+		<span class="curDate">
+			<span id="clock_year">0000</span>年
+			<span id="clock_month">00</span>月
+			<span id="clock_day">00</span>日 <span id="clock_dayOfWeek">X</span>曜日
+		</span><br />
 
-	<span id="clock_hh">00</span>:<span id="clock_mm">00</span>:<span id="clock_ss">00</span>
+		<span class="curTime">
+			<span id="clock_hh">00</span>:<span id="clock_mm">00</span>:<span id="clock_ss">00</span>
+		</span>
+	</div>
 
 </body>
 </html>
