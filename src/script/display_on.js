@@ -16,7 +16,7 @@ var MouseInput = struct ({
 });
 var MouseInputPtr = ref.refType(MouseInput);
 var mouseInput = new MouseInput();
-mouseInput.type = 3;
+mouseInput.type = 0;
 mouseInput.dx = 1;
 mouseInput.dy = 1;
 mouseInput.dwFlags = 0x0001;
@@ -39,29 +39,27 @@ var DISPLAY_OFF = 2;
 
 function DisplayOff()
 {
-	console.log("DisplayOff");
-	// User32.MessageBoxA(0,"text","title", 0);
 	User32.PostMessageA(HWND_BROADCAST,
 		WM_SYSCOMMAND, SC_MONITORPOWER, DISPLAY_OFF);
 }
 
 function DisplayOn()
 {
-	console.log("DisplayOn");
 	User32.PostMessageA(HWND_BROADCAST,
 		WM_SYSCOMMAND, SC_MONITORPOWER, DISPLAY_ON);
-		
+	
+	// さらにマウスを動かしてディスプレイを復帰させる	
 	var arch = require('os').arch();
-	var r = User32.SendInput (1, mouseInput.ref() , arch === 'x64' ? 40 : 28);
-	console.log(r);
+	User32.SendInput (1, mouseInput.ref() , arch === 'x64' ? 40 : 28);
 }
 
-DisplayOff();
 
-setTimeout(function () {
+if (process.argv.length < 3) {
+	DisplayOff();
+} else if (process.argv[2] == 'OFF') {
+	DisplayOff();
+} else {
 	DisplayOn();
-}, 3000);
+}
 
-setTimeout(function () {
-	// DisplayOn();
-}, 5000);
+
