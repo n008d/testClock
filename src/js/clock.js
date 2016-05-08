@@ -62,6 +62,16 @@ jQuery(function () {
 
 //--------------------------------------------------------------------
 // youtube
+var searchQuerys = [
+	"秋山殿",
+];
+function getYoutubeQuery()
+{
+	var idx = Math.floor (Math.random () * searchQuerys.length);
+	var query = searchQuerys[idx];
+	return query;
+}
+
 var player;
 function onYouTubePlayerAPIReady() {
 	player = new YT.Player('player', {
@@ -85,13 +95,24 @@ function onYouTubePlayerAPIReady() {
 function onPlayerReady(event) {
 	console.log('onPlayerReady', event);
 	event.target.mute();
-	startSearchYoutube('秋山殿');
+	startSearchYoutube(getYoutubeQuery());
 }
 
+var tailCueVideoId = '';
 function onPlayerStateChange(event) {
-	console.log('onPlayerStateChange', player.getPlayerState());
+	console.log('onPlayerStateChange', player.getPlayerState(), event, player);
 	if (player.getPlayerState() == YT.PlayerState.ENDED) {
-		startSearchYoutube('秋山殿');
+//		startSearchYoutube(getYoutubeQuery());
+
+		console.log(player.getVideoData());
+		if (tailCueVideoId) {
+			if (tailCueVideoId == player.getVideoData().video_id) {
+				tailCueVideoId = '';
+			}
+		} else {
+			startSearchYoutube(getYoutubeQuery());
+		}
+
 	} else if (player.getPlayerState() == YT.PlayerState.CUED) {
 		player.playVideo();
 	}
@@ -101,6 +122,7 @@ var API_KEY='AIzaSyCwHpQkimDe9v6EtvwRIhhB8DwDDuFGSjQ';
 var YOUTUBE_API_URL = 'https://www.googleapis.com/youtube/v3/';
 function startSearchYoutube(query)
 {
+	console.log("startSearchYoutube", query);
 	var url = YOUTUBE_API_URL + 'search';
 	var data = {
 		part:'snippet',
@@ -135,6 +157,11 @@ function startSearchYoutube(query)
 			}
 			// 成功時処理
 			// console.log(results);
+			
+			// 順番シャッフル
+//			var shuffle = function() {return Math.random()-.5};
+//			results.sort(shuffle);
+			
 			var playlist = [];
 			for (var i=0; i<results.length; ++i) {
 				var item = results[i];
@@ -142,6 +169,11 @@ function startSearchYoutube(query)
 				playlist.push(video_id);
 				console.log(video_id, item.snippet.title);
 			}
+			
+			// テスト用短いだけの動画
+			// playlist = ['KfiRi-7SwtM', 'n0W5ecXrakY', ];
+			tailCueVideoId = playlist[playlist.length-1];
+			console.log('cuePlaylist');
 			player.cuePlaylist(playlist);
 		},
 		error: function() {         // HTTPエラー時
