@@ -28,9 +28,10 @@ app.on('ready', function() {
 	var mainWindowParam = {
 		width: 1000, height: 600,
 		kiosk: true,
+		frame: false,
 	};
 	mainWindow = new BrowserWindow(mainWindowParam);
-	mainWindow.loadUrl('file://' + __dirname + '/index.html');
+	mainWindow.loadURL('file://' + __dirname + '/index.html');
 
 	// スリープ抑止
 	var powerSaveBlockerID = powerSaveBlocker.start('prevent-display-sleep');

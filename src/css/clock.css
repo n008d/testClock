@@ -28,3 +28,13 @@ img {
 	visibility: visible;
 	z-index:1;
 }
+
+video#camera {
+	background-color:#004000;	
+}
+
+#volume {
+	background-color: blue;
+	height: 5px;
+	width: 128px;
+}
