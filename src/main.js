@@ -61,7 +61,7 @@ function DisplayOnOff(on) {
 	});
 }
 
-// 画面消灯処理
+// TODO: 画面消灯処理
 setTimeout(function () {
 //	DisplayOnOff(DISPLAY_OFF);
 

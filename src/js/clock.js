@@ -50,7 +50,11 @@ jQuery(function () {
 	$('#fadeLayer').click(function () 
 	{
 		remoteConsole.log('#fadeLayer: clicked');
-		fadeTargetLevel = 0.0;
+		if (fadeTargetLevel <= 0.0) {
+			fadeTargetLevel = 0.9;
+		} else {
+			fadeTargetLevel = 0.0;
+		}
 		// updateVolume();
 		// startSearchYoutube('秋山殿');
 	});
