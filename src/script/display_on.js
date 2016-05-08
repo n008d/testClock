@@ -51,7 +51,8 @@ function DisplayOn()
 	// さらにマウスを動かしてディスプレイを復帰させる	
 	var arch = require('os').arch();
 	User32.SendInput (1, mouseInput.ref() , arch === 'x64' ? 40 : 28);
-	/* 少しまってマウス入力をしてみたが、
+	/* 少しまってマウス入力をしてみたが、YOGATABLET2では反応しない
+		＆ロック解除画面になってる
 		setTimeout(function () {
 			User32.SendInput (1, mouseInput.ref() , arch === 'x64' ? 40 : 28);
 			User32.PostMessageA(HWND_BROADCAST,

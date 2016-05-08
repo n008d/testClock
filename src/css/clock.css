@@ -9,13 +9,22 @@
 	text-align:center;
 }
 
-imga{
-}
-
 img {
-	-webkit-filter: brightness(0.05);
+/*	-webkit-filter: brightness(0.05);*/
 /*	-webkit-filter: grayscale(1.0);
 	-webkit-filter: brightness(0.1);
 	-webkit-filter: saturate(0.5);
 	-webkit-filter: contrast(0.1); */
+}
+
+#fadeLayer {
+	position: absolute;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+	background-color: #000000;
+	opacity:0.0;
+	visibility: visible;
+	z-index:1;
 }
