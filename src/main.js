@@ -23,6 +23,10 @@ app.on('window-all-closed', function() {
 	app.quit();
 });
 
+
+// スリープ抑止
+var powerSaveBlockerID = powerSaveBlocker.start('prevent-display-sleep');
+
 // アプリケーションの初期化が完了したらメインウィンドウを開く
 app.on('ready', function() {
 	var mainWindowParam = {
@@ -33,11 +37,14 @@ app.on('ready', function() {
 	mainWindow.loadUrl('file://' + __dirname + '/index.html');
 
 	// スリープ抑止
-	var powerSaveBlockerID = powerSaveBlocker.start('prevent-display-sleep');
+	// powerSaveBlockerID = powerSaveBlocker.start('prevent-display-sleep');
 	
 	// メインウィンドウが閉じられたときの処理
 	mainWindow.on('closed', function() {
-		powerSaveBlocker.stop(powerSaveBlockerID);
+		if (powerSaveBlockerID) {
+			powerSaveBlocker.stop(powerSaveBlockerID);
+			powerSaveBlockerID = 0;
+		}
 		mainWindow = null;
 	});
 });
@@ -59,9 +66,27 @@ function DisplayOnOff(on) {
 
 // 画面消灯処理
 setTimeout(function () {
+/*
+	if (powerSaveBlockerID) {
+		powerSaveBlocker.stop(powerSaveBlockerID);
+		powerSaveBlockerID = 0;
+	}
+
 	DisplayOnOff(DISPLAY_OFF);
+*/
+
+	// スクリーンセーバー起動テスト
+	var cmd = 'start C:\\Windows\\System32\\Bubbles.scr /s';	// scrnsave, Bubbles
+	child_process.exec(cmd, function (err, stdout, stderr) {
+		if (err)	     console.log("[err]\n" + err);
+		if (stdout)    console.log("[stdout]\n" + stdout);
+		if (stderr)     console.log("[stderr]\n" + stderr);
+	});
+
 }, 2000);
 
 setTimeout(function () {
 	DisplayOnOff(DISPLAY_ON);
+	
+	// powerSaveBlockerID = powerSaveBlocker.start('prevent-display-sleep');
 }, 8000);
