@@ -9,3 +9,13 @@
 	text-align:center;
 }
 
+imga{
+}
+
+img {
+	-webkit-filter: brightness(0.05);
+/*	-webkit-filter: grayscale(1.0);
+	-webkit-filter: brightness(0.1);
+	-webkit-filter: saturate(0.5);
+	-webkit-filter: contrast(0.1); */
+}
