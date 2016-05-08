@@ -129,7 +129,7 @@ function updateVolume() {
 	var finalVol = 0;
 	for (var i=0; i<volumeArray.length; ++i) finalVol += volumeArray[i];
 	finalVol /= volumeArray.length;
-	remoteConsole.log('finalVol: ', finalVol);
+	// remoteConsole.log('finalVol: ', finalVol);
 	
 	volumeNode.css('width', (finalVol*100) + 'px');
 }

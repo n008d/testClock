@@ -17,6 +17,17 @@ img {
 	-webkit-filter: contrast(0.1); */
 }
 
+.stroke {
+/*
+	-webkit-text-stroke: 10px #CCC;
+	*/
+	text-shadow:
+		-1px -1px 20px #FFF,
+		1px -1px 20px #FFF,
+		-1px 1px 20px #FFF,
+		1px 1px 20px #FFF;
+}
+
 #fadeLayer {
 	position: absolute;
 	top:0px;
@@ -37,4 +48,12 @@ video#camera {
 	background-color: blue;
 	height: 5px;
 	width: 128px;
+}
+
+body {
+	background-image: url("http://girls-und-panzer.jp/img/character/yukari_top.jpg");
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center center;
+	background-size: contain;
 }
