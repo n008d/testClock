@@ -50,7 +50,13 @@ function DisplayOn()
 	
 	// さらにマウスを動かしてディスプレイを復帰させる	
 	var arch = require('os').arch();
+
 	User32.SendInput (1, mouseInput.ref() , arch === 'x64' ? 40 : 28);
+	setTimeout(function () {
+		User32.SendInput (1, mouseInput.ref() , arch === 'x64' ? 40 : 28);
+		User32.PostMessageA(HWND_BROADCAST,
+			WM_SYSCOMMAND, SC_MONITORPOWER, DISPLAY_ON);
+	}, 500);
 }
 
 
