@@ -51,9 +51,22 @@ video#camera {
 }
 
 body {
+/*
 	background-image: url("http://girls-und-panzer.jp/img/character/yukari_top.jpg");
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-position: center center;
 	background-size: contain;
+*/
+}
+
+#player {
+	position: absolute;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+	background-color: #222;
+	visibility: visible;
+	z-index:-1;
 }

@@ -52,11 +52,107 @@ jQuery(function () {
 		remoteConsole.log('#fadeLayer: clicked');
 		fadeTargetLevel = 0.0;
 		// updateVolume();
+		// startSearchYoutube('秋山殿');
 	});
-	
+
+	// WEBカメラ監視開始
 	capCamera();
-	// canWebcam();
+	
 });
+
+//--------------------------------------------------------------------
+// youtube
+var player;
+function onYouTubePlayerAPIReady() {
+	player = new YT.Player('player', {
+		height: 480*0.5,
+		width: 854*0.5,
+//		videoId: 'XofJrPcCtSQ',	// とりあえず秋山殿
+		playerVars: {
+			'rel': 0,
+			'controls': 0,
+			'autoplay': 1,
+			'showinfo': 0,
+			'loop': 0 
+		},
+		events: {
+			'onReady': onPlayerReady,
+			'onStateChange':onPlayerStateChange,
+		}
+	});
+}
+
+function onPlayerReady(event) {
+	console.log('onPlayerReady', event);
+	event.target.mute();
+	startSearchYoutube('秋山殿');
+}
+
+function onPlayerStateChange(event) {
+	console.log('onPlayerStateChange', player.getPlayerState());
+	if (player.getPlayerState() == YT.PlayerState.ENDED) {
+		startSearchYoutube('秋山殿');
+	} else if (player.getPlayerState() == YT.PlayerState.CUED) {
+		player.playVideo();
+	}
+}
+
+var API_KEY='AIzaSyCwHpQkimDe9v6EtvwRIhhB8DwDDuFGSjQ';
+var YOUTUBE_API_URL = 'https://www.googleapis.com/youtube/v3/';
+function startSearchYoutube(query)
+{
+	var url = YOUTUBE_API_URL + 'search';
+	var data = {
+		part:'snippet',
+		order:'relevance',
+		q:query,
+		type:'video',
+		regionCode:'JP',
+		maxResults:50,
+		key:API_KEY,
+	};
+	var dataText = '';
+	for (var key in data) {
+		var value = encodeURIComponent(data[key]);
+		if (0 < dataText.length) dataText += '&';
+		dataText += key + '=' + value;
+	}
+	
+	$.ajax({
+		type:"get",                // method
+		url:url,
+		data:dataText,
+		contentType: 'application/json', // リクエストの Content-Type
+		dataType: "json",           // レスポンスをJSONとしてパースする
+		success: function(json_data) {   // 200 OK時
+			// JSON Arrayの先頭が成功フラグ、失敗の場合2番目がエラーメッセージ
+			// console.log(json_data);
+			var results = json_data.items;
+
+			if (!results) {    // サーバが失敗を返した場合
+				console.log("Transaction error. " + json_data[1]);
+				return;
+			}
+			// 成功時処理
+			// console.log(results);
+			var playlist = [];
+			for (var i=0; i<results.length; ++i) {
+				var item = results[i];
+				var video_id = item.id.videoId;
+				playlist.push(video_id);
+				console.log(video_id, item.snippet.title);
+			}
+			player.cuePlaylist(playlist);
+		},
+		error: function() {         // HTTPエラー時
+			console.log("Server Error. Pleasy try again later.");
+		},
+		complete: function() {      // 成功・失敗に関わらず通信が終了した際の処理
+			console.log('startSearchYoutube complete.');
+		}
+	});
+}
+
 
 //--------------------------------------------------------------------
 // ウェブカメラ起動
@@ -78,6 +174,7 @@ function capCamera(){
 		function(stream) {
 			remoteConsole.log(stream);
 			video.src = window.URL.createObjectURL(stream);
+			video.muted = true;
 			
 			audioCtx = new AudioContext;
 			// remoteConsole.log(audioCtx);
@@ -99,6 +196,7 @@ function capCamera(){
 }
 
 // ボリュームチェック
+// 直近のデータの平均値を現在ボリュームとする
 var volumeNode;
 var VOLUME_CHECK_SIZE = 5;
 
