@@ -104,7 +104,11 @@ function initFadeLayer()
 			var diffY = posPrev.y - posStart.y;
 			
 			if (Math.abs(diffX) < TOUCHMOVE_THRESHOLD
-				&& Math.abs(diffY) < TOUCHMOVE_THRESHOLD) return; // 近すぎ
+				&& Math.abs(diffY) < TOUCHMOVE_THRESHOLD)
+			{	// 近すぎ
+				fadeLayoutClick();
+				return;
+			}
 			
 			if (Math.abs(diffY) < Math.abs(diffX)) {
 				if (0 < diffX)	fadeLayerRight();
@@ -121,6 +125,17 @@ function toggleMute()
 {
 	if(!player.isMuted()) player.mute();
 	else player.unMute();
+}
+
+function fadeLayoutClick()
+{
+	remoteConsole.log("fadeLayoutClick()");
+	
+	var VideoId = 'b6-2P8RgT0A';	// うまるちゃんOP
+	videoIdList = [];
+	player.cueVideoById(VideoId);
+	player.unMute();
+	// startSearchYoutube(getYoutubeQuery());
 }
 
 function fadeLayerDown()
