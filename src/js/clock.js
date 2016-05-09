@@ -79,6 +79,7 @@ function initFadeLayer()
 	$('#fadeLayer').bind( {
 		'touchstart mousedown': function (event) {
 			drag = true;
+			console.log('touch', event);
 			var x = isTouch? event.originalEvent.touches[0].pageX : event.clientX;
 			var y = isTouch? event.originalEvent.touches[0].pageY : event.clientY;
 			posStart.x = x;
