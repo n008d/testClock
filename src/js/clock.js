@@ -60,7 +60,9 @@ jQuery(function () {
 	});
 
 	// WEBカメラ監視開始
-	capCamera();
+	if ($('#camera')[0]) {
+		capCamera();
+	}
 	
 });
 
@@ -98,7 +100,7 @@ function onYouTubePlayerAPIReady() {
 
 function onPlayerReady(event) {
 	console.log('onPlayerReady', event);
-	event.target.mute();
+//	event.target.mute();
 	startSearchYoutube(getYoutubeQuery());
 }
 
