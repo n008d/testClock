@@ -57,6 +57,7 @@ function toggleFadeMode()
 {
 	if (fadeTargetLevel <= 0.0) {
 		fadeTargetLevel = 0.9;
+		player.mute();	// 画面暗くするときは必ずミュートする
 	} else {
 		fadeTargetLevel = 0.0;
 	}
