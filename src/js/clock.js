@@ -116,27 +116,36 @@ function initFadeLayer()
 	});
 }
 
+function toggleMute()
+{
+	if(!player.isMuted()) player.mute();
+	else player.unMute();
+}
 
 function fadeLayerDown()
 {
 	remoteConsole.log("fadeLayerDown()");
-	$('#cursorLog').text('DOWN');
+	// $('#cursorLog').text('DOWN');
+	toggleFadeMode();
 }
 
 function fadeLayerUp()
 {
 	remoteConsole.log("fadeLayerUp()");
-	$('#cursorLog').text('UP');
+	// $('#cursorLog').text('UP');
+	toggleFadeMode();
 }
 
 function fadeLayerLeft()
 {
 	remoteConsole.log("fadeLayerLeft()");
-	$('#cursorLog').text('LEFT');
+	// $('#cursorLog').text('LEFT');
+	toggleMute();
 }
 
 function fadeLayerRight()
 {
 	remoteConsole.log("fadeLayerRight()");
-	$('#cursorLog').text('RIGHT');
+	// $('#cursorLog').text('RIGHT');
+	toggleMute();
 }
