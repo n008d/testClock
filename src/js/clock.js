@@ -90,7 +90,7 @@ function initFadeLayer()
 			// remoteConsole.log('#fadeLayer: mouseup', event.clientX, event.clientY);
 			if (!drag) return;
 			drag = false;
-			console.log('up', event.originalEvent.touches);
+			console.log('up', event.originalEvent);
 			var x = isTouch? event.originalEvent.touches[0].clientX : event.clientX;
 			var y = isTouch? event.originalEvent.touches[0].clientY : event.clientY;
 
