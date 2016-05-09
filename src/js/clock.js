@@ -75,27 +75,32 @@ function initFadeLayer()
 	
 	var drag = false;
 	var posStart = { x:0, y:0 };
+	var posPrev = { x:0, y:0 };
 	var TOUCHMOVE_THRESHOLD = 200;
 	$('#fadeLayer').bind( {
 		'touchstart mousedown': function (event) {
 			drag = true;
-			console.log('down', event.originalEvent.touches);
+			// console.log('down', event.originalEvent.touches);
 			var x = isTouch? event.originalEvent.touches[0].clientX : event.clientX;
 			var y = isTouch? event.originalEvent.touches[0].clientY : event.clientY;
-			posStart.x = x;
-			posStart.y = y;
+			posPrev.x = posStart.x = x;
+			posPrev.y = posStart.y = y;
 			// remoteConsole.log('#fadeLayer: down', x, y);
+		},
+		'touchmove mousemove': function (event) {
+			if (!drag) return;
+			var x = isTouch? event.originalEvent.touches[0].clientX : event.clientX;
+			var y = isTouch? event.originalEvent.touches[0].clientY : event.clientY;
+			posPrev.x = x;
+			posPrev.y = y;
 		},
 		'touchend mouseup': function (event) {
 			// remoteConsole.log('#fadeLayer: mouseup', event.clientX, event.clientY);
 			if (!drag) return;
 			drag = false;
-			console.log('up', event.originalEvent);
-			var x = isTouch? event.originalEvent.touches[0].clientX : event.clientX;
-			var y = isTouch? event.originalEvent.touches[0].clientY : event.clientY;
 
-			var diffX = x - posStart.x;
-			var diffY = y - posStart.y;
+			var diffX = posPrev.x - posStart.x;
+			var diffY = posPrev.y - posStart.y;
 			
 			if (Math.abs(diffX) < TOUCHMOVE_THRESHOLD
 				&& Math.abs(diffY) < TOUCHMOVE_THRESHOLD) return; // 近すぎ
