@@ -79,9 +79,9 @@ function initFadeLayer()
 	$('#fadeLayer').bind( {
 		'touchstart mousedown': function (event) {
 			drag = true;
-			console.log('touch', event);
-			var x = isTouch? event.originalEvent.touches[0].pageX : event.clientX;
-			var y = isTouch? event.originalEvent.touches[0].pageY : event.clientY;
+			console.log('down', event.originalEvent.touches);
+			var x = isTouch? event.originalEvent.touches[0].clientX : event.clientX;
+			var y = isTouch? event.originalEvent.touches[0].clientY : event.clientY;
 			posStart.x = x;
 			posStart.y = y;
 			// remoteConsole.log('#fadeLayer: down', x, y);
@@ -90,8 +90,9 @@ function initFadeLayer()
 			// remoteConsole.log('#fadeLayer: mouseup', event.clientX, event.clientY);
 			if (!drag) return;
 			drag = false;
-			var x = isTouch? event.originalEvent.touches[0].pageX : event.clientX;
-			var y = isTouch? event.originalEvent.touches[0].pageY : event.clientY;
+			console.log('up', event.originalEvent.touches);
+			var x = isTouch? event.originalEvent.touches[0].clientX : event.clientX;
+			var y = isTouch? event.originalEvent.touches[0].clientY : event.clientY;
 
 			var diffX = x - posStart.x;
 			var diffY = y - posStart.y;
