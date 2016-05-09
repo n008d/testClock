@@ -71,37 +71,41 @@ function initFadeLayer()
 //		toggleFadeMode();
 //	});
 
+	var isTouch = ('ontouchstart' in window);
+	
 	var drag = false;
 	var posStart = { x:0, y:0 };
-	var posPrev = { x:0, y:0 };
-	$('#fadeLayer').mousedown(function (event) {
-		drag = true;
-		posPrev.x = posStart.x = event.clientX;
-		posPrev.y = posStart.y = event.clientY;
-		// remoteConsole.log('#fadeLayer: mousedown', event.clientX, event.clientY);
-	});
-	$('#fadeLayer').mouseup(function (event) {
-		// remoteConsole.log('#fadeLayer: mouseup', event.clientX, event.clientY);
-		drag = false;
-		var diffX = event.clientX - posStart.x;
-		var diffY = event.clientY - posStart.y;
-		
-		if (Math.abs(diffX)<300 && Math.abs(diffY)<300) return; // 近すぎ
-		// remoteConsole.log('---> ', diffX, diffY);
-		
-		if (Math.abs(diffY) < Math.abs(diffX)) {
-			if (0 < diffX)	fadeLayerRight();
-			else fadeLayerLeft();
-		} else {
-			if (0 < diffY)	fadeLayerDown();
-			else fadeLayerUp();
+	var TOUCHMOVE_THRESHOLD = 200;
+	$('#fadeLayer').bind( {
+		'touchstart mousedown': function (event) {
+			drag = true;
+			var x = isTouch? event.changedTouches[0].pageX : event.clientX;
+			var y = isTouch? event.changedTouches[0].pageY : event.clientY;
+			posStart.x = x;
+			posStart.y = y;
+			// remoteConsole.log('#fadeLayer: down', x, y);
+		},
+		'touchend mouseup': function (event) {
+			// remoteConsole.log('#fadeLayer: mouseup', event.clientX, event.clientY);
+			if (!drag) return;
+			drag = false;
+			var x = isTouch? event.changedTouches[0].pageX : event.clientX;
+			var y = isTouch? event.changedTouches[0].pageY : event.clientY;
+
+			var diffX = x - posStart.x;
+			var diffY = y - posStart.y;
+			
+			if (Math.abs(diffX) < TOUCHMOVE_THRESHOLD
+				&& Math.abs(diffY) < TOUCHMOVE_THRESHOLD) return; // 近すぎ
+			
+			if (Math.abs(diffY) < Math.abs(diffX)) {
+				if (0 < diffX)	fadeLayerRight();
+				else fadeLayerLeft();
+			} else {
+				if (0 < diffY)	fadeLayerDown();
+				else fadeLayerUp();
+			}
 		}
-	});
-	$('#fadeLayer').mousemove(function (event) {
-		if (!drag) return;
-		posPrev.x = event.clientX;
-		posPrev.y = event.clientY;
-		// remoteConsole.log('#fadeLayer: mousemove', event.clientX, event.clientY);
 	});
 }
 
