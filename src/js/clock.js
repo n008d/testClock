@@ -28,6 +28,7 @@ jQuery(function () {
 	}, 100);
 
 	// 画面の明るさ管理
+	initFadeLayer();
 	setInterval(function () {
 		var FADE_SPEED = 0.1;
 		var screen_level = parseFloat($('#fadeLayer').css('opacity'));
@@ -45,23 +46,86 @@ jQuery(function () {
 		$('#fadeLayer').css('opacity', screen_level);
 	}, 50);	
 	
-	
-	// クリックしたら明るさ復帰
-	$('#fadeLayer').click(function () 
-	{
-		remoteConsole.log('#fadeLayer: clicked');
-		if (fadeTargetLevel <= 0.0) {
-			fadeTargetLevel = 0.9;
-		} else {
-			fadeTargetLevel = 0.0;
-		}
-		// updateVolume();
-		// startSearchYoutube('秋山殿');
-	});
-
 	// WEBカメラ監視開始
 	if ($('#camera')[0]) {
 		capCamera();
 	}
 	
 });
+
+function toggleFadeMode()
+{
+	if (fadeTargetLevel <= 0.0) {
+		fadeTargetLevel = 0.9;
+	} else {
+		fadeTargetLevel = 0.0;
+	}
+}
+
+function initFadeLayer()
+{
+	// クリックしたら明るさ復帰
+//	$('#fadeLayer').click(function () 
+//	{
+//		remoteConsole.log('#fadeLayer: clicked');
+//		toggleFadeMode();
+//	});
+
+	var drag = false;
+	var posStart = { x:0, y:0 };
+	var posPrev = { x:0, y:0 };
+	$('#fadeLayer').mousedown(function (event) {
+		drag = true;
+		posPrev.x = posStart.x = event.clientX;
+		posPrev.y = posStart.y = event.clientY;
+		// remoteConsole.log('#fadeLayer: mousedown', event.clientX, event.clientY);
+	});
+	$('#fadeLayer').mouseup(function (event) {
+		// remoteConsole.log('#fadeLayer: mouseup', event.clientX, event.clientY);
+		drag = false;
+		var diffX = event.clientX - posStart.x;
+		var diffY = event.clientY - posStart.y;
+		
+		if (Math.abs(diffX)<300 && Math.abs(diffY)<300) return; // 近すぎ
+		// remoteConsole.log('---> ', diffX, diffY);
+		
+		if (Math.abs(diffY) < Math.abs(diffX)) {
+			if (0 < diffX)	fadeLayerRight();
+			else fadeLayerLeft();
+		} else {
+			if (0 < diffY)	fadeLayerDown();
+			else fadeLayerUp();
+		}
+	});
+	$('#fadeLayer').mousemove(function (event) {
+		if (!drag) return;
+		posPrev.x = event.clientX;
+		posPrev.y = event.clientY;
+		// remoteConsole.log('#fadeLayer: mousemove', event.clientX, event.clientY);
+	});
+}
+
+
+function fadeLayerDown()
+{
+	remoteConsole.log("fadeLayerDown()");
+	$('#cursorLog').text('DOWN');
+}
+
+function fadeLayerUp()
+{
+	remoteConsole.log("fadeLayerUp()");
+	$('#cursorLog').text('UP');
+}
+
+function fadeLayerLeft()
+{
+	remoteConsole.log("fadeLayerLeft()");
+	$('#cursorLog').text('LEFT');
+}
+
+function fadeLayerRight()
+{
+	remoteConsole.log("fadeLayerRight()");
+	$('#cursorLog').text('RIGHT');
+}

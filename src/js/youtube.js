@@ -13,6 +13,7 @@ var searchQuerys = [
 			 "WOT",  "World of Tanks",
 			 "自衛隊",
 			 "フューリー",
+			 "妊娠",
 		],
 		[	// ignore desc
 			"パーソナリティ",
@@ -187,7 +188,7 @@ function startSearchYoutube(queryArray)
 			}
 			if (skip) continue;
 
-			console.log(">>>>", video_id, title, desc);
+			console.log(">>>>", video_id, title, desc, item);
 			playlist.push(video_id);
 		}
 
