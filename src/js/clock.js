@@ -174,6 +174,5 @@ function KeyDown(event)
 {
 	remoteConsole.log("key code: " + event.keyCode);
 	$("#cursorLog").text(event.keyCode);
-	event.preventDefault();
 }
 
