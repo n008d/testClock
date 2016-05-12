@@ -165,3 +165,14 @@ function fadeLayerRight()
 	// $('#cursorLog').text('RIGHT');
 	toggleMute();
 }
+// --------------------------------------------
+jQuery(function () {
+	document.onkeydown = KeyDown;
+});
+
+function KeyDown(event)
+{
+	remoteConsole.log("key code: " + event.keyCode);
+	$("#cursorLog").text(event.keyCode);
+}
+
