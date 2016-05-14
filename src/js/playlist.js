@@ -7,72 +7,85 @@ var shffleStartVideo = [
 
 var searchQuerys = [
 	// query, ignore title, ignore desc, ignore video id
-	[	"秋山殿",	// query string
+	[	'"秋山殿"',	// query string
 		[	// ignore title
-			"富士総火演",
-			 "ガソリンスタンド",
-			 "本物の戦車に乗る",
-			 "開封",
-			 "COD",
-			 "実況",
-			 "パチンコ", "スロット",
-			 "WOT",  "World of Tanks",
-			 "自衛隊",
-			 "フューリー",
-			 "妊娠",
+			'富士総火演',
+			 'ガソリンスタンド',
+			 '本物の戦車に乗る',
+			 '開封',
+			 'COD',
+			 '実況',
+			 'パチンコ', 'スロット',
+			 'WOT',  'World of Tanks',
+			 '自衛隊',
+			 'フューリー',
+			 '妊娠',
 		],
 		[	// ignore desc
-			"パーソナリティ",
-			"引用元",
+			'パーソナリティ',
+			'引用元',
 		],
 		[	// ignore video id
 		],
 	],
 
-	[	"ゆゆ式",	// query string
+	[	'"ゆゆ式"',	// query string
 		[	// ignore title
-			"聖地巡礼",
-			"弾いてみた",
+			'聖地巡礼',
+			'弾いてみた',
 		],
 		[	// ignore desc
-			"パーソナリティ",
-			"引用元",
+			'パーソナリティ',
+			'引用元',
 		],
 		[	// ignore video id
 		],
 	],
-	[	"うまるちゃん",	// query string
+	[	'"うまるちゃん"',	// query string
 		[	// ignore title
-			"聖地巡礼",
-			"弾いてみた",
+			'聖地巡礼',
+			'弾いてみた',
 		],
 		[	// ignore desc
-			"パーソナリティ",
-			"引用元",
+			'パーソナリティ',
+			'引用元',
 		],
 		[	// ignore video id
 		],
 	],
-	[	"ゆるゆり",	// query string
+	[	'"ゆるゆり" -実況',	// query string
 		[	// ignore title
-			"聖地巡礼",
-			"弾いてみた",
+			'聖地巡礼',
+			'弾いてみた',
 		],
 		[	// ignore desc
-			"パーソナリティ",
-			"引用元",
+			'パーソナリティ',
+			'引用元',
 		],
 		[	// ignore video id
 		],
 	],
-	[	"Aチャンネル",	// query string
+	[	'"Aチャンネル"',	// query string
 		[	// ignore title
-			"聖地巡礼",
-			"弾いてみた",
+			'聖地巡礼',
+			'弾いてみた',
 		],
 		[	// ignore desc
-			"パーソナリティ",
-			"引用元",
+			'パーソナリティ',
+			'引用元',
+		],
+		[	// ignore video id
+		],
+	],
+	
+	[	'"のんのんびより" -"駄菓子屋"',	// query string
+		[	// ignore title
+			'聖地巡礼',
+			'弾いてみた',
+		],
+		[	// ignore desc
+			'パーソナリティ',
+			'引用元',
 		],
 		[	// ignore video id
 		],

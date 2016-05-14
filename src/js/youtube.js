@@ -9,6 +9,7 @@ var videoIdList = [
 function getYoutubeQuery()
 {
 	var idx = Math.floor (Math.random () * searchQuerys.length);
+	// remoteConsole.log(idx + ' / ' + searchQuerys.length);
 	var query = searchQuerys[idx];
 	return query;
 }
@@ -181,5 +182,6 @@ function youtubePrev()
 // シャッフル再生
 function youtubeSearchNext()
 {
+	videoIdList = [];
 	startSearchYoutube(getYoutubeQuery());
 }
