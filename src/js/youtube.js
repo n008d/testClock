@@ -1,41 +1,5 @@
 
-var searchQuerys = [
-	// query, ignore title, ignore desc, ignore video id
-	[	"秋山殿",	// query string
-		[	// ignore title
-			"富士総火演",
-			 "ガソリンスタンド",
-			 "本物の戦車に乗る",
-			 "開封",
-			 "COD",
-			 "実況",
-			 "パチンコ", "スロット",
-			 "WOT",  "World of Tanks",
-			 "自衛隊",
-			 "フューリー",
-			 "妊娠",
-		],
-		[	// ignore desc
-			"パーソナリティ",
-			"引用元",
-		],
-		[	// ignore video id
-		],
-	],
 
-	[	"ゆゆ式",	// query string
-		[	// ignore title
-			"聖地巡礼",
-			"弾いてみた",
-		],
-		[	// ignore desc
-			"パーソナリティ",
-			"引用元",
-		],
-		[	// ignore video id
-		],
-	],
-];
 var videoIdList = [
 	
 ];
@@ -79,15 +43,8 @@ function onPlayerStateChange(event) {
 	console.log('onPlayerStateChange', player.getPlayerState(), event, player);
 	if (player.getPlayerState() == YT.PlayerState.ENDED) {
 //		startSearchYoutube(getYoutubeQuery());
-
 		console.log("ENDED", player.getVideoData());
-		if (0 < videoIdList.length) {
-			player.cueVideoById(videoIdList[0]);
-			videoIdList.shift();
-		} else {
-			startSearchYoutube(getYoutubeQuery());
-		}
-
+		youtubeNext();
 	} else if (player.getPlayerState() == YT.PlayerState.CUED) {
 		player.playVideo();
 		console.log("PLAY: ", player.getVideoData());
@@ -203,4 +160,26 @@ function startSearchYoutube(queryArray)
 		player.cueVideoById(videoIdList[0]);
 		videoIdList.shift();
 	}
+}
+
+function youtubeNext()
+{
+	if (0 < videoIdList.length) {
+		player.cueVideoById(videoIdList[0]);
+		videoIdList.shift();
+	} else {
+		startSearchYoutube(getYoutubeQuery());
+	}
+}
+
+// 最初から再生する
+function youtubePrev()
+{
+	player.seekTo(0, true);
+}
+
+// シャッフル再生
+function youtubeSearchNext()
+{
+	startSearchYoutube(getYoutubeQuery());
 }

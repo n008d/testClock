@@ -60,6 +60,7 @@ function toggleFadeMode()
 		player.mute();	// 画面暗くするときは必ずミュートする
 	} else {
 		fadeTargetLevel = 0.0;
+		player.unMute();	// ミュート解除
 	}
 }
 
@@ -131,10 +132,11 @@ function fadeLayoutClick()
 {
 	remoteConsole.log("fadeLayoutClick()");
 	
-	var VideoId = 'b6-2P8RgT0A';	// うまるちゃんOP
+	var idx = Math.floor(Math.random() * shffleStartVideo.length);
+	var VideoId = shffleStartVideo[idx];
 	videoIdList = [];
 	player.cueVideoById(VideoId);
-	player.unMute();
+	// player.unMute();
 	// startSearchYoutube(getYoutubeQuery());
 }
 
@@ -156,23 +158,47 @@ function fadeLayerLeft()
 {
 	remoteConsole.log("fadeLayerLeft()");
 	// $('#cursorLog').text('LEFT');
-	toggleMute();
+	// toggleMute();
 }
 
 function fadeLayerRight()
 {
 	remoteConsole.log("fadeLayerRight()");
 	// $('#cursorLog').text('RIGHT');
-	toggleMute();
+	// toggleMute();
 }
 // --------------------------------------------
 jQuery(function () {
 	document.onkeydown = KeyDown;
 });
 
+
 function KeyDown(event)
 {
-	remoteConsole.log("key code: " + event.keyCode);
-	$("#cursorLog").text(event.keyCode);
+	var KEY_CODE_ENTER		=  13;
+	var KEY_CODE_NEXT		= 176;
+	var KEY_CODE_PREV		= 177;
+	var KEY_CODE_PLAY_PAUSE	= 179;
+
+	// remoteConsole.log("key code: " + event.keyCode);
+	// $("#cursorLog").text(event.keyCode);
+	switch(event.keyCode) {
+	case KEY_CODE_ENTER:
+		// remoteConsole.log(" ENTER");
+		toggleFadeMode();
+		break;
+	case KEY_CODE_PREV:
+		// remoteConsole.log(" PREV");
+		youtubePrev();
+		break;
+	case KEY_CODE_NEXT:
+		// remoteConsole.log(" NEXT");
+		youtubeNext();
+		break;
+	case KEY_CODE_PLAY_PAUSE:
+		// remoteConsole.log(" PLAY");
+		youtubeSearchNext();
+		break;
+	}
 }
 
