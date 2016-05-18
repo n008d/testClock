@@ -90,4 +90,30 @@ var searchQuerys = [
 		[	// ignore video id
 		],
 	],
+	
+	[	'"ガールズアンドパンツァー" -"CR" -"パチスロ" -"スロット" -"感想"',	// query string
+		[	// ignore title
+			'聖地巡礼',
+			'弾いてみた',
+		],
+		[	// ignore desc
+			'パーソナリティ',
+			'引用元',
+		],
+		[	// ignore video id
+		],
+	],
+	
+	[	'"苺ましまろ"',	// query string
+		[	// ignore title
+			'聖地巡礼',
+			'弾いてみた',
+		],
+		[	// ignore desc
+			'パーソナリティ',
+			'引用元',
+		],
+		[	// ignore video id
+		],
+	],
 ];

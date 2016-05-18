@@ -10,6 +10,8 @@ function getYoutubeQuery()
 {
 	var idx = Math.floor (Math.random () * searchQuerys.length);
 	// remoteConsole.log(idx + ' / ' + searchQuerys.length);
+
+	// idx = searchQuerys.length-1;
 	var query = searchQuerys[idx];
 	return query;
 }

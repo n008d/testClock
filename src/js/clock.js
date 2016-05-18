@@ -10,7 +10,7 @@ jQuery(function () {
 	setInterval(function (){
 		var curDate = new Date();
 		$('#clock_year').text(curDate.getFullYear());
-		$('#clock_month').text(curDate.getMonth());
+		$('#clock_month').text(curDate.getMonth()+1);
 		$('#clock_day').text(curDate.getDate());
 		$('#clock_dayOfWeek').text(WEEK_DAYS[curDate.getDay()]);
 
@@ -180,6 +180,11 @@ function KeyDown(event)
 	var KEY_CODE_PREV		= 177;
 	var KEY_CODE_PLAY_PAUSE	= 179;
 
+
+	var KEY_CODE_RELOAD     = 40;
+	var KEY_CODE_NEXT2		= 39;
+	var KEY_CODE_PREV2		= 37;
+
 	// remoteConsole.log("key code: " + event.keyCode);
 	// $("#cursorLog").text(event.keyCode);
 	switch(event.keyCode) {
@@ -188,14 +193,17 @@ function KeyDown(event)
 		toggleFadeMode();
 		break;
 	case KEY_CODE_PREV:
+	case KEY_CODE_PREV2:
 		// remoteConsole.log(" PREV");
 		youtubePrev();
 		break;
 	case KEY_CODE_NEXT:
+	case KEY_CODE_NEXT2:
 		// remoteConsole.log(" NEXT");
 		youtubeNext();
 		break;
 	case KEY_CODE_PLAY_PAUSE:
+	case KEY_CODE_RELOAD:
 		// remoteConsole.log(" PLAY");
 		youtubeSearchNext();
 		break;
