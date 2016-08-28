@@ -3,6 +3,7 @@ var BrowserWindow = require('browser-window');
 var powerSaveBlocker = require('electron').powerSaveBlocker;
 var child_process = require('child_process');
 var path = require('path');
+var OutLog = require('./OutLog.js')
 
 var BASE_DIR;
 if (process.argv[1].match(/\.js$/)) {
@@ -10,8 +11,8 @@ if (process.argv[1].match(/\.js$/)) {
 } else {
 	BASE_DIR = path.resolve(process.argv[1]);
 }
-console.log('process.argv[1]: ' + process.argv[1]);
-console.log('BASE_DIR: ' + BASE_DIR);
+OutLog.log('process.argv[1]: ' + process.argv[1]);
+OutLog.log('BASE_DIR: ' + BASE_DIR);
 
 //  クラッシュレポート
 require('crash-reporter').start();
@@ -43,6 +44,7 @@ app.on('ready', function() {
 			powerSaveBlockerID = 0;
 		}
 		mainWindow = null;
+		OutLog.log('CLOSE');
 	});
 });
 
@@ -55,9 +57,9 @@ function DisplayOnOff(on) {
 	else    cmd += 'OFF';
 	
 	child_process.exec(cmd, function (err, stdout, stderr) {
-		if (err)	     console.log("[err]\n" + err);
-		if (stdout)    console.log("[stdout]\n" + stdout);
-		if (stderr)     console.log("[stderr]\n" + stderr);
+		if (err)	   OutLog.log("[err]\n" + err);
+		if (stdout)    OutLog.log("[stdout]\n" + stdout);
+		if (stderr)    OutLog.log("[stderr]\n" + stderr);
 	});
 }
 
@@ -69,9 +71,9 @@ setTimeout(function () {
 	/* Bubbles.scr なら操作で正常に復帰できる
 	var cmd = 'start C:\\Windows\\System32\\Bubbles.scr /s';	// scrnsave, Bubbles
 	child_process.exec(cmd, function (err, stdout, stderr) {
-		if (err)	     console.log("[err]\n" + err);
-		if (stdout)    console.log("[stdout]\n" + stdout);
-		if (stderr)     console.log("[stderr]\n" + stderr);
+		if (err)	   OutLog.log("[err]\n" + err);
+		if (stdout)    OutLog.log("[stdout]\n" + stdout);
+		if (stderr)    OutLog.log("[stderr]\n" + stderr);
 	});
 	 */
 
@@ -81,3 +83,7 @@ setTimeout(function () {
 	// YOGATABLET2では復帰できない？
 //	DisplayOnOff(DISPLAY_ON);
 }, 8000);
+
+
+
+OutLog.log('BOOT');

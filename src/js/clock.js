@@ -1,7 +1,8 @@
 "use strict";
 
 var remote = require('remote');
-var remoteConsole = remote.require('console');
+var remoteConsole = remote.require('./OutLog.js');
+// var remoteConsole = remote.require('console');
 var fadeTargetLevel = 0.0;
 
 // 時間表示

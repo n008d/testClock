@@ -1,4 +1,7 @@
 
+var remote = require('remote');
+var remoteConsole = remote.require('./OutLog.js');
+// var remoteConsole = remote.require('console');
 
 var videoIdList = [
 	
@@ -37,20 +40,20 @@ function onYouTubePlayerAPIReady() {
 }
 
 function onPlayerReady(event) {
-	console.log('onPlayerReady', event);
+	remoteConsole.log('onPlayerReady'+', '+ event);
 //	event.target.mute();
 	startSearchYoutube(getYoutubeQuery());
 }
 
 function onPlayerStateChange(event) {
-	console.log('onPlayerStateChange', player.getPlayerState(), event, player);
+	remoteConsole.log('onPlayerStateChange'+', '+ player.getPlayerState()+', '+ event+', '+ player);
 	if (player.getPlayerState() == YT.PlayerState.ENDED) {
 //		startSearchYoutube(getYoutubeQuery());
-		console.log("ENDED", player.getVideoData());
+		remoteConsole.log("ENDED"+', '+ player.getVideoData());
 		youtubeNext();
 	} else if (player.getPlayerState() == YT.PlayerState.CUED) {
 		player.playVideo();
-		console.log("PLAY: ", player.getVideoData());
+		remoteConsole.log("PLAY: "+', '+ player.getVideoData());
 	}
 }
 
@@ -63,7 +66,7 @@ function startSearchYoutube(queryArray)
 	var ignore_desc = queryArray[2];
 	var ignore_video_id = queryArray[3];
 	
-	console.log("startSearchYoutube", query);
+	remoteConsole.log("startSearchYoutube"+', '+ query);
 	var url = YOUTUBE_API_URL + 'search';
 	var data = {
 		part:'snippet',
@@ -89,10 +92,10 @@ function startSearchYoutube(queryArray)
 		dataType: "json",           // レスポンスをJSONとしてパースする
 		success: finishedSearchYoutube,	 // 200 OK時
 		error: function() {         // HTTPエラー時
-			console.log("Server Error. Pleasy try again later.");
+			remoteConsole.log("Server Error. Pleasy try again later.");
 		},
 		complete: function() {      // 成功・失敗に関わらず通信が終了した際の処理
-			console.log('startSearchYoutube complete.');
+			remoteConsole.log('startSearchYoutube complete.');
 		}
 	});
 
@@ -103,7 +106,7 @@ function startSearchYoutube(queryArray)
 		var results = json_data.items;
 
 		if (!results) {    // サーバが失敗を返した場合
-			console.log("Transaction error. " + json_data[1]);
+			remoteConsole.log("Transaction error. " + json_data[1]);
 			return;
 		}
 		// 成功時処理
@@ -148,7 +151,7 @@ function startSearchYoutube(queryArray)
 			}
 			if (skip) continue;
 
-			console.log(">>>>", video_id, title, desc, item);
+			remoteConsole.log(">>>>"+ video_id+', '+ title+', '+ desc+', '+ item);
 			playlist.push(video_id);
 		}
 
@@ -159,7 +162,7 @@ function startSearchYoutube(queryArray)
 			videoIdList.push(playlist[i]);
 		}
 
-		console.log('cuePlaylist');
+		remoteConsole.log('cuePlaylist');
 		player.cueVideoById(videoIdList[0]);
 		videoIdList.shift();
 	}
