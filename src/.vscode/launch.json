@@ -5,10 +5,10 @@
 			"name": "起動",
 			"type": "node",
 			"request": "launch",
-			"program": "${workspaceRoot}/reloader/reloader.js",
+			"program": "${workspaceRoot}/main.js",
 			"stopOnEntry": false,
 			"args": [],
-			"cwd": "${workspaceRoot}/reloader/",
+			"cwd": "${workspaceRoot}",
 			"preLaunchTask": null,
 			"runtimeExecutable": null,
 			"runtimeArgs": [
