@@ -46,14 +46,25 @@ function onPlayerReady(event) {
 }
 
 function onPlayerStateChange(event) {
-	remoteConsole.log('onPlayerStateChange'+', '+ player.getPlayerState()+', '+ event+', '+ player);
+	// remoteConsole.log('onPlayerStateChange'+', '+ player.getPlayerState()+', '+ event+', '+ player);
+
+	var video = player.getVideoData();
+	var logMsg = 'video_id="'+ video.video_id + '"';
+	if (video.title)	logMsg += ', title="' + video.title + '"';
+	if (video.author)	logMsg += ', author="' + video.author + '"';
+	// console.log('video', video);
+	// console.log('logMsg', logMsg);
+
 	if (player.getPlayerState() == YT.PlayerState.ENDED) {
 //		startSearchYoutube(getYoutubeQuery());
-		remoteConsole.log("ENDED"+', '+ player.getVideoData());
+		remoteConsole.log('ENDED: '+ logMsg);
 		youtubeNext();
 	} else if (player.getPlayerState() == YT.PlayerState.CUED) {
 		player.playVideo();
-		remoteConsole.log("PLAY: "+', '+ player.getVideoData());
+		remoteConsole.log('CUED: '+ logMsg);
+	} else if (player.getPlayerState() == YT.PlayerState.PLAYING) {
+		console.log('else: ' + player.getPlayerState());
+		remoteConsole.log('PLAY: '+ logMsg);
 	}
 }
 
