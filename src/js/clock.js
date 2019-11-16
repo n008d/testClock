@@ -2,6 +2,7 @@
 
 var remote = require('remote');
 var remoteConsole = remote.require('./OutLog.js');
+var electron = remote.require('electron');
 // var remoteConsole = remote.require('console');
 var fadeTargetLevel = 0.0;
 
@@ -186,28 +187,41 @@ function KeyDown(event)
 	var KEY_CODE_NEXT2		= 39;
 	var KEY_CODE_PREV2		= 37;
 
+	var KEY_CODE_I = 73;
+	var KEY_CODE_Q = 81;
+	var KEY_CODE_ESC = 27;
+
 	// remoteConsole.log("key code: " + event.keyCode);
 	// $("#cursorLog").text(event.keyCode);
 	switch(event.keyCode) {
 	case KEY_CODE_ENTER:
 		// remoteConsole.log(" ENTER");
 		toggleFadeMode();
-		break;
+		return;
 	case KEY_CODE_PREV:
 	case KEY_CODE_PREV2:
 		// remoteConsole.log(" PREV");
 		youtubePrev();
-		break;
+		return;
 	case KEY_CODE_NEXT:
 	case KEY_CODE_NEXT2:
 		// remoteConsole.log(" NEXT");
 		youtubeNext();
-		break;
+		return;
 	case KEY_CODE_PLAY_PAUSE:
 	case KEY_CODE_RELOAD:
 		// remoteConsole.log(" PLAY");
 		youtubeSearchNext();
-		break;
+		return;
+	case KEY_CODE_I: // 動いてないっぽい？？？？
+		mainWindow.openDevTools();
+		return;
+	case KEY_CODE_Q:
+	case KEY_CODE_ESC:
+		remoteConsole.log("exit key down....");
+		electron.app.quit();
+		return;
 	}
+	// remoteConsole.log("event.keyCode:" + event.keyCode);
 }
 
